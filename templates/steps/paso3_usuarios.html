@@ -1,0 +1,507 @@
+<!-- Paso 3: Usuarios de la Aplicación -->
+<div class="step-content">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="alert alert-info d-flex align-items-center" role="alert">
+                <i class="bi bi-info-circle me-3 fs-4"></i>
+                <div>
+                    <strong>Usuarios del Sistema</strong><br>
+                    Configure los usuarios que tendrán acceso al sistema. Puede crear hasta 3 usuarios según las
+                    licencias adquiridas.
+                    Cada usuario necesita un email único y una contraseña segura.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón para agregar usuario -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <button type="button" class="btn btn-success" id="add-usuario">
+                <i class="bi bi-person-plus me-2"></i>Agregar Usuario
+            </button>
+            <small class="text-muted ms-3">Máximo 3 usuarios según licencias adquiridas</small>
+        </div>
+    </div>
+
+    <!-- Contenedor de usuarios -->
+    <div id="usuarios-container">
+        <!-- Template de usuario (se clonará dinámicamente) -->
+        <div class="usuario-item card mb-4" style="display: none;" id="usuario-template">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                <h6 class="mb-0">
+                    <i class="bi bi-person me-2"></i>
+                    Usuario <span class="usuario-number">1</span>
+                </h6>
+                <button type="button" class="btn btn-sm btn-outline-danger remove-usuario">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Nombre Completo *
+                            <i class="bi bi-question-circle tooltip-icon ms-1"
+                               data-bs-toggle="tooltip"
+                               title="Nombre y apellidos del usuario"></i>
+                        </label>
+                        <input type="text"
+                               class="form-control usuario-nombre"
+                               name="nombre_usuario"
+                               placeholder="Ej: Juan Pérez García"
+                               required>
+                        <div class="invalid-feedback">
+                            Por favor, ingrese el nombre completo.
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Email del Usuario *
+                            <i class="bi bi-question-circle tooltip-icon ms-1"
+                               data-bs-toggle="tooltip"
+                               title="Email único para acceso al sistema"></i>
+                        </label>
+                        <input type="email"
+                               class="form-control usuario-email"
+                               name="email_usuario"
+                               placeholder="Ej: juan.perez@empresa.com"
+                               required>
+                        <div class="invalid-feedback">
+                            Por favor, ingrese un email válido y único.
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Contraseña *
+                            <i class="bi bi-question-circle tooltip-icon ms-1"
+                               data-bs-toggle="tooltip"
+                               title="Mínimo 8 caracteres, incluir mayúscula, minúscula y número"></i>
+                        </label>
+                        <div class="input-group">
+                            <input type="password"
+                                   class="form-control usuario-password"
+                                   name="password_usuario"
+                                   placeholder="Contraseña segura"
+                                   minlength="8"
+                                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$"
+                                   required>
+                            <button class="btn btn-outline-secondary toggle-password" type="button">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                        <div class="invalid-feedback">
+                            La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número.
+                        </div>
+                        <div class="password-strength mt-1">
+                            <div class="progress" style="height: 4px;">
+                                <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <small class="text-muted strength-text">Ingrese una contraseña</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Confirmar Contraseña *
+                            <i class="bi bi-question-circle tooltip-icon ms-1"
+                               data-bs-toggle="tooltip"
+                               title="Repita la contraseña para confirmar"></i>
+                        </label>
+                        <input type="password"
+                               class="form-control usuario-confirm-password"
+                               name="confirm_password_usuario"
+                               placeholder="Confirmar contraseña"
+                               required>
+                        <div class="invalid-feedback">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Rol del Usuario
+                            <i class="bi bi-question-circle tooltip-icon ms-1"
+                               data-bs-toggle="tooltip"
+                               title="Nivel de acceso del usuario en el sistema"></i>
+                        </label>
+                        <select class="form-select usuario-rol" name="rol_usuario">
+                            <option value="usuario">Usuario Estándar</option>
+                            <option value="supervisor">Supervisor</option>
+                            <option value="administrador">Administrador</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Departamento
+                            <i class="bi bi-question-circle tooltip-icon ms-1"
+                               data-bs-toggle="tooltip"
+                               title="Departamento o área de trabajo (opcional)"></i>
+                        </label>
+                        <input type="text"
+                               class="form-control usuario-departamento"
+                               name="departamento_usuario"
+                               placeholder="Ej: Administración, Ventas, Operaciones">
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <label class="form-label">
+                            Permisos Especiales
+                            <i class="bi bi-question-circle tooltip-icon ms-1"
+                               data-bs-toggle="tooltip"
+                               title="Permisos adicionales para este usuario"></i>
+                        </label>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="permisos_facturacion"
+                                           id="permisos_facturacion">
+                                    <label class="form-check-label" for="permisos_facturacion">
+                                        Facturación
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="permisos_reportes"
+                                           id="permisos_reportes">
+                                    <label class="form-check-label" for="permisos_reportes">
+                                        Reportes
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="permisos_configuracion"
+                                           id="permisos_configuracion">
+                                    <label class="form-check-label" for="permisos_configuracion">
+                                        Configuración
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumen del usuario -->
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="alert alert-light border">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <strong>Nombre</strong><br>
+                                    <span class="text-primary usuario-resumen-nombre">-</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <strong>Email</strong><br>
+                                    <span class="text-primary usuario-resumen-email">-</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <strong>Rol</strong><br>
+                                    <span class="badge bg-info usuario-resumen-rol">Usuario Estándar</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <strong>Departamento</strong><br>
+                                    <span class="text-primary usuario-resumen-departamento">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensaje cuando no hay usuarios -->
+    <div id="no-usuarios-message" class="text-center py-5">
+        <i class="bi bi-people display-1 text-muted mb-3"></i>
+        <h5 class="text-muted">No hay usuarios configurados</h5>
+        <p class="text-muted">Haga clic en "Agregar Usuario" para comenzar a configurar los usuarios del sistema.</p>
+    </div>
+
+    <!-- Resumen de usuarios -->
+    <div id="resumen-usuarios" class="card bg-primary text-white mt-4" style="display: none;">
+        <div class="card-body">
+            <h5 class="card-title">
+                <i class="bi bi-people me-2"></i>Resumen de Usuarios
+            </h5>
+            <div class="row text-center">
+                <div class="col-md-3">
+                    <h6>Total Usuarios</h6>
+                    <h4 id="total-usuarios">0</h4>
+                </div>
+                <div class="col-md-3">
+                    <h6>Administradores</h6>
+                    <h4 id="total-administradores">0</h4>
+                </div>
+                <div class="col-md-3">
+                    <h6>Supervisores</h6>
+                    <h4 id="total-supervisores">0</h4>
+                </div>
+                <div class="col-md-3">
+                    <h6>Usuarios Estándar</h6>
+                    <h4 id="total-usuarios-estandar">0</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nota sobre licencias -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="alert alert-warning">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                <strong>Nota importante:</strong> El número de usuarios está limitado por las licencias de software
+                adquiridas.
+                Si necesita más usuarios, contacte con el soporte técnico.
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let usuarioCounter = 0;
+        const maxUsuarios = 3;
+
+        // Función para agregar un nuevo usuario
+        function addUsuario() {
+            if (usuarioCounter >= maxUsuarios) {
+                alert('Máximo 3 usuarios permitidos según las licencias adquiridas.');
+                return;
+            }
+
+            usuarioCounter++;
+            const template = document.getElementById('usuario-template');
+            const newUsuario = template.cloneNode(true);
+
+            // Configurar el nuevo usuario
+            newUsuario.id = `usuario-${usuarioCounter}`;
+            newUsuario.style.display = 'block';
+            newUsuario.querySelector('.usuario-number').textContent = usuarioCounter;
+
+            // Actualizar nombres de los campos
+            const inputs = newUsuario.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                const name = input.getAttribute('name');
+                if (name) {
+                    input.setAttribute('name', `usuarios[${usuarioCounter - 1}][${name}]`);
+                    // Actualizar IDs únicos para checkboxes
+                    if (input.type === 'checkbox') {
+                        const newId = input.id + '_' + usuarioCounter;
+                        input.id = newId;
+                        const label = newUsuario.querySelector(`label[for="${input.id.replace('_' + usuarioCounter, '')}"]`);
+                        if (label) label.setAttribute('for', newId);
+                    }
+                }
+            });
+
+            // Agregar al contenedor
+            document.getElementById('usuarios-container').appendChild(newUsuario);
+
+            // Configurar eventos
+            setupUsuarioEvents(newUsuario);
+
+            // Ocultar mensaje de no usuarios
+            document.getElementById('no-usuarios-message').style.display = 'none';
+            document.getElementById('resumen-usuarios').style.display = 'block';
+
+            // Actualizar botón si se alcanza el máximo
+            if (usuarioCounter >= maxUsuarios) {
+                document.getElementById('add-usuario').disabled = true;
+                document.getElementById('add-usuario').innerHTML = '<i class="bi bi-exclamation-triangle me-2"></i>Máximo alcanzado';
+            }
+
+            updateResumenUsuarios();
+        }
+
+        // Función para configurar eventos de un usuario
+        function setupUsuarioEvents(usuarioElement) {
+            // Evento para eliminar usuario
+            usuarioElement.querySelector('.remove-usuario').addEventListener('click', function () {
+                usuarioElement.remove();
+                usuarioCounter--;
+
+                // Reactivar botón de agregar
+                const addBtn = document.getElementById('add-usuario');
+                addBtn.disabled = false;
+                addBtn.innerHTML = '<i class="bi bi-person-plus me-2"></i>Agregar Usuario';
+
+                updateResumenUsuarios();
+
+                // Mostrar mensaje si no hay usuarios
+                const usuarios = document.querySelectorAll('.usuario-item:not(#usuario-template)');
+                if (usuarios.length === 0) {
+                    document.getElementById('no-usuarios-message').style.display = 'block';
+                    document.getElementById('resumen-usuarios').style.display = 'none';
+                }
+            });
+
+            // Toggle password visibility
+            const toggleBtn = usuarioElement.querySelector('.toggle-password');
+            const passwordField = usuarioElement.querySelector('.usuario-password');
+
+            toggleBtn.addEventListener('click', function () {
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+
+                const icon = this.querySelector('i');
+                icon.className = type === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash';
+            });
+
+            // Password strength indicator
+            passwordField.addEventListener('input', function () {
+                updatePasswordStrength(usuarioElement);
+            });
+
+            // Confirm password validation
+            const confirmField = usuarioElement.querySelector('.usuario-confirm-password');
+            confirmField.addEventListener('input', function () {
+                validatePasswordMatch(usuarioElement);
+            });
+
+            // Email uniqueness validation
+            const emailField = usuarioElement.querySelector('.usuario-email');
+            emailField.addEventListener('blur', function () {
+                validateEmailUniqueness(this);
+            });
+
+            // Eventos para actualizar resumen
+            const inputs = usuarioElement.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                input.addEventListener('input', function () {
+                    updateUsuarioResumen(usuarioElement);
+                    updateResumenUsuarios();
+                });
+            });
+        }
+
+        // Función para actualizar la fortaleza de la contraseña
+        function updatePasswordStrength(usuarioElement) {
+            const password = usuarioElement.querySelector('.usuario-password').value;
+            const progressBar = usuarioElement.querySelector('.password-strength .progress-bar');
+            const strengthText = usuarioElement.querySelector('.strength-text');
+
+            let strength = 0;
+            let text = 'Muy débil';
+            let color = 'bg-danger';
+
+            if (password.length >= 8) strength += 25;
+            if (/[a-z]/.test(password)) strength += 25;
+            if (/[A-Z]/.test(password)) strength += 25;
+            if (/\d/.test(password)) strength += 25;
+
+            if (strength >= 100) {
+                text = 'Muy fuerte';
+                color = 'bg-success';
+            } else if (strength >= 75) {
+                text = 'Fuerte';
+                color = 'bg-info';
+            } else if (strength >= 50) {
+                text = 'Moderada';
+                color = 'bg-warning';
+            } else if (strength >= 25) {
+                text = 'Débil';
+                color = 'bg-warning';
+            }
+
+            progressBar.style.width = strength + '%';
+            progressBar.className = `progress-bar ${color}`;
+            strengthText.textContent = text;
+        }
+
+        // Función para validar coincidencia de contraseñas
+        function validatePasswordMatch(usuarioElement) {
+            const password = usuarioElement.querySelector('.usuario-password').value;
+            const confirm = usuarioElement.querySelector('.usuario-confirm-password').value;
+            const confirmField = usuarioElement.querySelector('.usuario-confirm-password');
+
+            if (confirm && password !== confirm) {
+                confirmField.classList.add('is-invalid');
+                confirmField.classList.remove('is-valid');
+            } else if (confirm) {
+                confirmField.classList.add('is-valid');
+                confirmField.classList.remove('is-invalid');
+            }
+        }
+
+        // Función para validar unicidad del email
+        function validateEmailUniqueness(emailField) {
+            const email = emailField.value.trim();
+            if (!email) return;
+
+            const allEmails = Array.from(document.querySelectorAll('.usuario-email'))
+                .filter(field => field !== emailField)
+                .map(field => field.value.trim());
+
+            if (allEmails.includes(email)) {
+                emailField.classList.add('is-invalid');
+                emailField.classList.remove('is-valid');
+
+                let feedback = emailField.parentNode.querySelector('.invalid-feedback');
+                if (feedback) {
+                    feedback.textContent = 'Este email ya está siendo usado por otro usuario.';
+                }
+            } else if (email) {
+                emailField.classList.add('is-valid');
+                emailField.classList.remove('is-invalid');
+            }
+        }
+
+        // Función para actualizar el resumen de un usuario
+        function updateUsuarioResumen(usuarioEl) {
+            if (!usuarioEl) return;
+
+            const nombreInput = usuarioEl.querySelector('.usuario-nombre');
+            const emailInput = usuarioEl.querySelector('.usuario-email');
+
+            const resumenNombre = usuarioEl.querySelector('.usuario-resumen-nombre');
+            const resumenEmail = usuarioEl.querySelector('.usuario-resumen-email');
+
+            // ⚠️ Si el resumen aún no existe, NO hacemos nada
+            if (!resumenNombre || !resumenEmail) {
+                return;
+            }
+
+            resumenNombre.textContent = nombreInput?.value || '—';
+            resumenEmail.textContent = emailInput?.value || '—';
+        }
+
+        // Función para actualizar el resumen total
+        function updateResumenUsuarios() {
+            const usuarios = document.querySelectorAll('.usuario-item:not(#usuario-template)');
+            let totalUsuarios = usuarios.length;
+            let totalAdministradores = 0;
+            let totalSupervisores = 0;
+            let totalUsuariosEstandar = 0;
+
+            usuarios.forEach(usuario => {
+                const rol = usuario.querySelector('.usuario-rol').value;
+                switch (rol) {
+                    case 'administrador':
+                        totalAdministradores++;
+                        break;
+                    case 'supervisor':
+                        totalSupervisores++;
+                        break;
+                    default:
+                        totalUsuariosEstandar++;
+                }
+            });
+
+            document.getElementById('total-usuarios').textContent = totalUsuarios;
+            document.getElementById('total-administradores').textContent = totalAdministradores;
+            document.getElementById('total-supervisores').textContent = totalSupervisores;
+            document.getElementById('total-usuarios-estandar').textContent = totalUsuariosEstandar;
+        }
+
+        // Evento para agregar usuario
+        document.getElementById('add-usuario').addEventListener('click', addUsuario);
+
+        // Agregar un usuario inicial
+        addUsuario();
+    });
+</script>
