@@ -341,15 +341,25 @@
         // =========================
         // 🔥 REHIDRATAR DESDE BACKEND
         // =========================
-        const data = window.formularioData?.paso_2 || [];
+
+        const data = window.formularioData?.datosFormulario?.info_trasteros || [];
 
         if (Array.isArray(data) && data.length > 0) {
             data.forEach(t => addTrastero(t));
-        } else {
-            updateState();
         }
 
-        // Botón agregar
-        document.getElementById('add-trastero').addEventListener('click', () => addTrastero());
-    });
+        {#const data = window.formularioData?.paso_2 || [];#}
+        {##}
+        {#if (Array.isArray(data) && data.length > 0) {#}
+        {#    data.forEach(t => addTrastero(t));#}
+        {#} else
+            {#}
+                {#    updateState();#}
+                {#}#}
+
+                    // Botón agregar
+                    document.getElementById('add-trastero').addEventListener('click', () => addTrastero());
+                }
+            )
+                ;
 </script>

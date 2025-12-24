@@ -6,7 +6,8 @@
                 <i class="bi bi-info-circle me-3 fs-4"></i>
                 <div>
                     <strong>Configuración del Servidor de Correo</strong><br>
-                    Configure el servidor de correo saliente para el envío de notificaciones, facturas y comunicaciones automáticas del sistema.
+                    Configure el servidor de correo saliente para el envío de notificaciones, facturas y comunicaciones
+                    automáticas del sistema.
                     Asegúrese de tener los datos correctos de su proveedor de email.
                 </div>
             </div>
@@ -24,14 +25,14 @@
         <div class="col-md-6 mb-3">
             <label for="servidor_saliente" class="form-label">
                 Servidor de Correo Saliente (SMTP) *
-                <i class="bi bi-question-circle tooltip-icon ms-1" 
-                   data-bs-toggle="tooltip" 
+                <i class="bi bi-question-circle tooltip-icon ms-1"
+                   data-bs-toggle="tooltip"
                    title="Dirección del servidor SMTP de su proveedor de email"></i>
             </label>
-            <input type="text" 
-                   class="form-control" 
-                   id="servidor_saliente" 
-                   name="servidor_saliente" 
+            <input type="text"
+                   class="form-control"
+                   id="servidor_saliente"
+                   name="servidor_saliente"
                    placeholder="Ej: smtp.gmail.com, smtp.outlook.com"
                    required>
             <div class="invalid-feedback">
@@ -42,8 +43,8 @@
         <div class="col-md-6 mb-3">
             <label for="puerto_smtp" class="form-label">
                 Puerto SMTP *
-                <i class="bi bi-question-circle tooltip-icon ms-1" 
-                   data-bs-toggle="tooltip" 
+                <i class="bi bi-question-circle tooltip-icon ms-1"
+                   data-bs-toggle="tooltip"
                    title="Puerto del servidor SMTP (común: 587, 465, 25)"></i>
             </label>
             <select class="form-select" id="puerto_smtp" name="puerto" required>
@@ -61,14 +62,14 @@
         <div class="col-md-6 mb-3">
             <label for="direccion_servidor" class="form-label">
                 Dirección del Servidor *
-                <i class="bi bi-question-circle tooltip-icon ms-1" 
-                   data-bs-toggle="tooltip" 
+                <i class="bi bi-question-circle tooltip-icon ms-1"
+                   data-bs-toggle="tooltip"
                    title="Misma dirección que el servidor SMTP (para verificación)"></i>
             </label>
-            <input type="text" 
-                   class="form-control" 
-                   id="direccion_servidor" 
-                   name="direccion_servidor" 
+            <input type="text"
+                   class="form-control"
+                   id="direccion_servidor"
+                   name="direccion_servidor"
                    placeholder="Ej: smtp.gmail.com"
                    required>
             <div class="invalid-feedback">
@@ -79,8 +80,8 @@
         <div class="col-md-6 mb-3">
             <label for="usa_ssl" class="form-label">
                 Usar SSL/TLS *
-                <i class="bi bi-question-circle tooltip-icon ms-1" 
-                   data-bs-toggle="tooltip" 
+                <i class="bi bi-question-circle tooltip-icon ms-1"
+                   data-bs-toggle="tooltip"
                    title="Protocolo de seguridad para la conexión (recomendado: SÍ)"></i>
             </label>
             <div class="d-flex gap-3 mt-2">
@@ -114,14 +115,14 @@
         <div class="col-md-6 mb-3">
             <label for="usuario_email" class="form-label">
                 Usuario (Dirección Email) *
-                <i class="bi bi-question-circle tooltip-icon ms-1" 
-                   data-bs-toggle="tooltip" 
+                <i class="bi bi-question-circle tooltip-icon ms-1"
+                   data-bs-toggle="tooltip"
                    title="Email que se usará para autenticar en el servidor SMTP"></i>
             </label>
-            <input type="email" 
-                   class="form-control" 
-                   id="usuario_email" 
-                   name="usuario_email" 
+            <input type="email"
+                   class="form-control"
+                   id="usuario_email"
+                   name="usuario_email"
                    placeholder="Ej: sistema@empresa.com"
                    required>
             <div class="invalid-feedback">
@@ -132,15 +133,15 @@
         <div class="col-md-6 mb-3">
             <label for="password_email" class="form-label">
                 Contraseña del Email *
-                <i class="bi bi-question-circle tooltip-icon ms-1" 
-                   data-bs-toggle="tooltip" 
+                <i class="bi bi-question-circle tooltip-icon ms-1"
+                   data-bs-toggle="tooltip"
                    title="Contraseña del email o contraseña de aplicación"></i>
             </label>
             <div class="input-group">
-                <input type="password" 
-                       class="form-control" 
-                       id="password_email" 
-                       name="password_email" 
+                <input type="password"
+                       class="form-control"
+                       id="password_email"
+                       name="password_email"
                        placeholder="Contraseña del email"
                        required>
                 <button class="btn btn-outline-secondary" type="button" id="toggle-email-password">
@@ -156,44 +157,6 @@
         </div>
     </div>
 
-    <!-- Configuraciones Predefinidas -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <h5 class="text-primary mb-3">
-                <i class="bi bi-gear-fill me-2"></i>Configuraciones Rápidas
-            </h5>
-            <p class="text-muted">Seleccione su proveedor de email para configurar automáticamente los parámetros:</p>
-        </div>
-
-        <div class="col-12 mb-3">
-            <div class="row g-3">
-                <div class="col-md-3">
-                    <button type="button" class="btn btn-outline-primary w-100 config-preset" 
-                            data-provider="gmail">
-                        <i class="bi bi-google me-2"></i>Gmail
-                    </button>
-                </div>
-                <div class="col-md-3">
-                    <button type="button" class="btn btn-outline-primary w-100 config-preset" 
-                            data-provider="outlook">
-                        <i class="bi bi-microsoft me-2"></i>Outlook
-                    </button>
-                </div>
-                <div class="col-md-3">
-                    <button type="button" class="btn btn-outline-primary w-100 config-preset" 
-                            data-provider="yahoo">
-                        <i class="bi bi-envelope me-2"></i>Yahoo
-                    </button>
-                </div>
-                <div class="col-md-3">
-                    <button type="button" class="btn btn-outline-secondary w-100" 
-                            id="clear-config">
-                        <i class="bi bi-arrow-clockwise me-2"></i>Limpiar
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Notificaciones del Sistema -->
     <div class="row mb-4">
@@ -206,21 +169,22 @@
         <div class="col-12 mb-3">
             <label for="email_notificaciones" class="form-label">
                 Email para Notificaciones del Sistema *
-                <i class="bi bi-question-circle tooltip-icon ms-1" 
-                   data-bs-toggle="tooltip" 
+                <i class="bi bi-question-circle tooltip-icon ms-1"
+                   data-bs-toggle="tooltip"
                    title="Email donde recibirá notificaciones sobre actualizaciones, mantenimientos, etc."></i>
             </label>
-            <input type="email" 
-                   class="form-control" 
-                   id="email_notificaciones" 
-                   name="email_notificaciones" 
+            <input type="email"
+                   class="form-control"
+                   id="email_notificaciones"
+                   name="email_notificaciones"
                    placeholder="Ej: admin@empresa.com"
                    required>
             <div class="invalid-feedback">
                 Por favor, ingrese un email válido para notificaciones.
             </div>
             <small class="text-muted">
-                Este email recibirá notificaciones importantes sobre el software: actualizaciones, cambios de usuarios, mantenimientos, averías, etc.
+                Este email recibirá notificaciones importantes sobre el software: actualizaciones, cambios de usuarios,
+                mantenimientos, averías, etc.
             </small>
         </div>
     </div>
@@ -236,34 +200,35 @@
         <div class="col-md-6 mb-3">
             <label for="nombre_remitente" class="form-label">
                 Nombre del Remitente
-                <i class="bi bi-question-circle tooltip-icon ms-1" 
-                   data-bs-toggle="tooltip" 
+                <i class="bi bi-question-circle tooltip-icon ms-1"
+                   data-bs-toggle="tooltip"
                    title="Nombre que aparecerá como remitente en los emails"></i>
             </label>
-            <input type="text" 
-                   class="form-control" 
-                   id="nombre_remitente" 
-                   name="nombre_remitente" 
+            <input type="text"
+                   class="form-control"
+                   id="nombre_remitente"
+                   name="nombre_remitente"
                    placeholder="Ej: Sistema Trasteros">
         </div>
 
         <div class="col-md-6 mb-3">
             <label for="email_respuesta" class="form-label">
                 Email de Respuesta
-                <i class="bi bi-question-circle tooltip-icon ms-1" 
-                   data-bs-toggle="tooltip" 
+                <i class="bi bi-question-circle tooltip-icon ms-1"
+                   data-bs-toggle="tooltip"
                    title="Email al que llegarán las respuestas (opcional)"></i>
             </label>
-            <input type="email" 
-                   class="form-control" 
-                   id="email_respuesta" 
-                   name="email_respuesta" 
+            <input type="email"
+                   class="form-control"
+                   id="email_respuesta"
+                   name="email_respuesta"
                    placeholder="Ej: noreply@empresa.com">
         </div>
 
         <div class="col-12 mb-3">
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="habilitar_notificaciones" name="habilitar_notificaciones" checked>
+                <input class="form-check-input" type="checkbox" id="habilitar_notificaciones"
+                       name="habilitar_notificaciones" checked>
                 <label class="form-check-label" for="habilitar_notificaciones">
                     <i class="bi bi-check-circle text-success me-1"></i>
                     Habilitar envío de notificaciones automáticas
@@ -276,24 +241,6 @@
     </div>
 
     <!-- Test de Conexión -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="card bg-light">
-                <div class="card-body">
-                    <h6 class="card-title">
-                        <i class="bi bi-wifi me-2"></i>Probar Configuración
-                    </h6>
-                    <p class="card-text text-muted">
-                        Una vez completada la configuración, puede probar la conexión al servidor de correo.
-                    </p>
-                    <button type="button" class="btn btn-info" id="test-connection" disabled>
-                        <i class="bi bi-send me-2"></i>Enviar Email de Prueba
-                    </button>
-                    <div id="test-result" class="mt-3" style="display: none;"></div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Resumen de Configuración -->
     <div class="row">
@@ -314,7 +261,8 @@
                         <div class="col-md-6">
                             <strong>Usuario:</strong> <span id="resumen-usuario">-</span><br>
                             <strong>Notificaciones:</strong> <span id="resumen-notificaciones">-</span><br>
-                            <strong>Estado:</strong> <span id="resumen-estado" class="badge bg-secondary">No configurado</span>
+                            <strong>Estado:</strong> <span id="resumen-estado"
+                                                           class="badge bg-secondary">No configurado</span>
                         </div>
                     </div>
                 </div>
@@ -324,72 +272,72 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Configuraciones predefinidas
-    const presets = {
-        gmail: {
-            servidor_saliente: 'smtp.gmail.com',
-            direccion_servidor: 'smtp.gmail.com',
-            puerto: '587',
-            usa_ssl: 'SI'
-        },
-        outlook: {
-            servidor_saliente: 'smtp-mail.outlook.com',
-            direccion_servidor: 'smtp-mail.outlook.com',
-            puerto: '587',
-            usa_ssl: 'SI'
-        },
-        yahoo: {
-            servidor_saliente: 'smtp.mail.yahoo.com',
-            direccion_servidor: 'smtp.mail.yahoo.com',
-            puerto: '587',
-            usa_ssl: 'SI'
-        }
-    };
-    
-    // Aplicar configuración predefinida
-    document.querySelectorAll('.config-preset').forEach(button => {
-        button.addEventListener('click', function() {
-            const provider = this.getAttribute('data-provider');
-            const config = presets[provider];
-            
-            if (config) {
-                document.getElementById('servidor_saliente').value = config.servidor_saliente;
-                document.getElementById('direccion_servidor').value = config.direccion_servidor;
-                document.getElementById('puerto_smtp').value = config.puerto;
-                
-                if (config.usa_ssl === 'SI') {
-                    document.getElementById('ssl_si').checked = true;
-                } else {
-                    document.getElementById('ssl_no').checked = true;
-                }
-                
-                // Actualizar resumen
-                updateResumen();
-                
-                // Mostrar mensaje de éxito
-                showToast(`Configuración de ${provider.charAt(0).toUpperCase() + provider.slice(1)} aplicada correctamente`, 'success');
-            }
-        });
-    });
-    
-    // Limpiar configuración
-    document.getElementById('clear-config').addEventListener('click', function() {
-        document.getElementById('servidor_saliente').value = '';
-        document.getElementById('direccion_servidor').value = '';
-        document.getElementById('puerto_smtp').value = '';
-        document.getElementById('ssl_si').checked = false;
-        document.getElementById('ssl_no').checked = false;
-        
-        updateResumen();
-        showToast('Configuración limpiada', 'info');
-    });
-    
+    {#document.addEventListener('DOMContentLoaded', function() {#}
+    {#    // Configuraciones predefinidas#}
+    {#    const presets = {#}
+    {#        gmail: {#}
+    {#            servidor_saliente: 'smtp.gmail.com',#}
+    {#            direccion_servidor: 'smtp.gmail.com',#}
+    {#            puerto: '587',#}
+    {#            usa_ssl: 'SI'#}
+    {#        },#}
+    {#        outlook: {#}
+    {#            servidor_saliente: 'smtp-mail.outlook.com',#}
+    {#            direccion_servidor: 'smtp-mail.outlook.com',#}
+    {#            puerto: '587',#}
+    {#            usa_ssl: 'SI'#}
+    {#        },#}
+    {#        yahoo: {#}
+    {#            servidor_saliente: 'smtp.mail.yahoo.com',#}
+    {#            direccion_servidor: 'smtp.mail.yahoo.com',#}
+    {#            puerto: '587',#}
+    {#            usa_ssl: 'SI'#}
+    {#        }#}
+    {#    };#}
+    {#    #}
+    {#    // Aplicar configuración predefinida#}
+    {#    document.querySelectorAll('.config-preset').forEach(button => {#}
+    {#        button.addEventListener('click', function() {#}
+    {#            const provider = this.getAttribute('data-provider');#}
+    {#            const config = presets[provider];#}
+    {#            #}
+    {#            if (config) {#}
+    {#                document.getElementById('servidor_saliente').value = config.servidor_saliente;#}
+    {#                document.getElementById('direccion_servidor').value = config.direccion_servidor;#}
+    {#                document.getElementById('puerto_smtp').value = config.puerto;#}
+    {#                #}
+    {#                if (config.usa_ssl === 'SI') {#}
+    {#                    document.getElementById('ssl_si').checked = true;#}
+    {#                } else {#}
+    {#                    document.getElementById('ssl_no').checked = true;#}
+    {#                }#}
+    {#                #}
+    {#                // Actualizar resumen#}
+    {#                updateResumen();#}
+    {#                #}
+    {#                // Mostrar mensaje de éxito#}
+    {#                showToast(`Configuración de ${provider.charAt(0).toUpperCase() + provider.slice(1)} aplicada correctamente`, 'success');#}
+    {#            }#}
+    {#        });#}
+    {#    });#}
+    {#    #}
+    {#    // Limpiar configuración#}
+    {#    document.getElementById('clear-config').addEventListener('click', function() {#}
+    {#        document.getElementById('servidor_saliente').value = '';#}
+    {#        document.getElementById('direccion_servidor').value = '';#}
+    {#        document.getElementById('puerto_smtp').value = '';#}
+    {#        document.getElementById('ssl_si').checked = false;#}
+    {#        document.getElementById('ssl_no').checked = false;#}
+    {#        #}
+    {#        updateResumen();#}
+    {#        showToast('Configuración limpiada', 'info');#}
+    {#    });#}
+
     // Toggle password visibility
-    document.getElementById('toggle-email-password').addEventListener('click', function() {
+    document.getElementById('toggle-email-password').addEventListener('click', function () {
         const passwordField = document.getElementById('password_email');
         const icon = this.querySelector('i');
-        
+
         if (passwordField.type === 'password') {
             passwordField.type = 'text';
             icon.className = 'bi bi-eye-slash';
@@ -398,13 +346,13 @@ document.addEventListener('DOMContentLoaded', function() {
             icon.className = 'bi bi-eye';
         }
     });
-    
+
     // Actualizar resumen en tiempo real
     const fieldsToWatch = [
-        'servidor_saliente', 'puerto_smtp', 'usa_ssl', 
+        'servidor_saliente', 'puerto_smtp', 'usa_ssl',
         'usuario_email', 'email_notificaciones'
     ];
-    
+
     fieldsToWatch.forEach(fieldId => {
         const field = document.getElementById(fieldId) || document.querySelector(`[name="${fieldId}"]`);
         if (field) {
@@ -412,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function() {
             field.addEventListener('change', updateResumen);
         }
     });
-    
+
     // Función para actualizar el resumen
     function updateResumen() {
         const servidor = document.getElementById('servidor_saliente').value || '-';
@@ -420,18 +368,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const ssl = document.querySelector('[name="usa_ssl"]:checked')?.value || '-';
         const usuario = document.getElementById('usuario_email').value || '-';
         const notificaciones = document.getElementById('email_notificaciones').value || '-';
-        
+
         document.getElementById('resumen-servidor').textContent = servidor;
         document.getElementById('resumen-puerto').textContent = puerto;
         document.getElementById('resumen-ssl').textContent = ssl;
         document.getElementById('resumen-usuario').textContent = usuario;
         document.getElementById('resumen-notificaciones').textContent = notificaciones;
-        
+
         // Actualizar estado
         const estadoBadge = document.getElementById('resumen-estado');
         const requiredFields = [servidor, puerto, ssl, usuario, notificaciones];
         const isComplete = requiredFields.every(field => field !== '-' && field !== '');
-        
+
         if (isComplete) {
             estadoBadge.textContent = 'Configurado';
             estadoBadge.className = 'badge bg-success';
@@ -442,55 +390,52 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('test-connection').disabled = true;
         }
     }
-    
-    // Test de conexión
-    document.getElementById('test-connection').addEventListener('click', function() {
-        const button = this;
-        const resultDiv = document.getElementById('test-result');
-        
-        // Deshabilitar botón y mostrar loading
-        button.disabled = true;
-        button.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Probando...';
-        
-        // Simular test de conexión (en producción sería una llamada AJAX)
-        setTimeout(() => {
-            const isSuccess = Math.random() > 0.3; // 70% de éxito simulado
-            
-            resultDiv.style.display = 'block';
-            
-            if (isSuccess) {
-                resultDiv.innerHTML = `
-                    <div class="alert alert-success">
-                        <i class="bi bi-check-circle me-2"></i>
-                        <strong>¡Conexión exitosa!</strong> El servidor de correo está configurado correctamente.
-                    </div>
-                `;
-            } else {
-                resultDiv.innerHTML = `
-                    <div class="alert alert-danger">
-                        <i class="bi bi-exclamation-triangle me-2"></i>
-                        <strong>Error de conexión.</strong> Verifique los datos del servidor y las credenciales.
-                    </div>
-                `;
-            }
-            
-            // Restaurar botón
-            button.disabled = false;
-            button.innerHTML = '<i class="bi bi-send me-2"></i>Enviar Email de Prueba';
-        }, 2000);
-    });
-    
-    // Función para mostrar toast
-    function showToast(message, type = 'info') {
-        // Crear toast dinámicamente (reutilizar del formulario principal)
-        if (window.formularioCliente && window.formularioCliente.showToast) {
-            window.formularioCliente.showToast(message, type);
-        } else {
-            alert(message); // Fallback
-        }
-    }
-    
+
+    {#// Test de conexión#}
+    {#document.getElementById('test-connection').addEventListener('click', function() {#}
+    {#    const button = this;#}
+    {#    const resultDiv = document.getElementById('test-result');#}
+    {#    #}
+    {#    // Deshabilitar botón y mostrar loading#}
+    {#    button.disabled = true;#}
+    {#    button.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Probando...';#}
+    {#    #}
+    {#    // Simular test de conexión (en producción sería una llamada AJAX)#}
+    {#    setTimeout(() => {#}
+    {#        const isSuccess = Math.random() > 0.3; // 70% de éxito simulado#}
+    {#        #}
+    {#        resultDiv.style.display = 'block';#}
+    {#        #}
+    {#        if (isSuccess) {#}
+    {#            resultDiv.innerHTML = `#}
+    {#                <div class="alert alert-success">#}
+    {#                    <i class="bi bi-check-circle me-2"></i>#}
+    {#                    <strong>¡Conexión exitosa!</strong> El servidor de correo está configurado correctamente.#}
+    {#                </div>#}
+    {#            `;#}
+    {#        } else {#}
+    {#            resultDiv.innerHTML = `#}
+    {#                <div class="alert alert-danger">#}
+    {#                    <i class="bi bi-exclamation-triangle me-2"></i>#}
+    {#                    <strong>Error de conexión.</strong> Verifique los datos del servidor y las credenciales.#}
+    {#                </div>#}
+    {#            `;#}
+    {#        }#}
+    {#        #}
+    {#        // Restaurar botón#}
+    {#        button.disabled = false;#}
+    {#        button.innerHTML = '<i class="bi bi-send me-2"></i>Enviar Email de Prueba';#}
+    {#    }, 2000);#}
+    {##}
+    {#// Función para mostrar toast#}
+    {#function showToast(message, type = 'info') {#}
+    {#    // Crear toast dinámicamente (reutilizar del formulario principal)#}
+    {#    if (window.formularioCliente && window.formularioCliente.showToast) {#}
+    {#        window.formularioCliente.showToast(message, type);#}
+    {#    } else {#}
+    {#        alert(message); // Fallback#}
+    {#    }#}
+
     // Inicializar resumen
     updateResumen();
-});
 </script>

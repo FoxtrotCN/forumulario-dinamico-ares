@@ -787,8 +787,75 @@ class FormularioCliente {
         return data;
     }
 
+    async saveStep6WithFiles() {
+        this.updateSaveStatus('saving');
+
+        // Accedemos a los archivos del paso 6
+        const step6Container = document.querySelector('[data-step="6"]');
+        if (!step6Container) return;
+
+        const formData = new FormData();
+
+        formData.append('cliente_id', this.clienteId);
+        formData.append('paso', 6);
+
+        // ----------------------------
+        // 📎 Archivos
+        // ----------------------------
+        if (window.uploadedFilesPaso6) {
+            Object.entries(window.uploadedFilesPaso6).forEach(([tipo, files]) => {
+                files.forEach(file => {
+                    formData.append(`documentos[${tipo}][]`, file);
+                });
+            });
+        }
+
+        // ----------------------------
+        // 📝 Notas
+        // ----------------------------
+        const notas = step6Container.querySelector('#notas_adicionales')?.value || '';
+        formData.append('notas_adicionales', notas);
+
+        try {
+            const response = await fetch('/api/save', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.mensaje || 'Error al guardar documentación');
+            }
+
+            this.updateSaveStatus('saved');
+
+            // Actualizar datos globales
+            if (!window.formularioData.datosFormulario) {
+                window.formularioData.datosFormulario = {};
+            }
+
+            if (result.formulario_data_actualizada?.documentacion) {
+                window.formularioData.datosFormulario.documentacion =
+                    result.formulario_data_actualizada.documentacion;
+            }
+
+            return result;
+
+        } catch (error) {
+            console.error(error);
+            this.updateSaveStatus('error');
+            throw error;
+        }
+    }
+
     async saveCurrentStep() {
         if (!this.clienteId) return;
+
+        if (this.currentStep === 6) {
+            console.info('Paso 6: saveCurrentStep bloqueado, solo uploads');
+            return;
+        }
 
         this.updateSaveStatus('saving');
 
@@ -939,37 +1006,37 @@ class FormularioCliente {
         // =========================
         // PASO 2 – Trasteros
         // =========================
-        if (step === 2 && Array.isArray(stepData)) {
-            const container = document.getElementById('trasteros-container');
-            if (!container) return;
-
-            // Limpiar existentes
-            container
-                .querySelectorAll('.trastero-item:not(#trastero-template)')
-                .forEach(el => el.remove());
-
-            stepData.forEach(trastero => {
-                if (typeof window.addTrastero !== 'function') return;
-
-                const el = window.addTrastero();
-                if (!el) return;
-
-                el.querySelector('.trastero-numero').value = trastero.numero_trastero || '';
-                el.querySelector('.trastero-metros').value = trastero.metros || '';
-                el.querySelector('.trastero-cubicos').value = trastero.metros_cubicos || '';
-                el.querySelector('.trastero-precio-sin-iva').value = trastero.precio_sin_iva || '';
-                el.querySelector('.trastero-precio-con-iva').value = trastero.precio_con_iva || '';
-                el.querySelector('.trastero-fianza').value = trastero.fianza || '';
-                el.querySelector('.trastero-descripcion').value = trastero.descripcion || '';
-
-                // Validar campos restaurados
-                el.querySelectorAll('input, select, textarea').forEach(f => {
-                    this.validateField(f);
-                });
-            });
-
-            return; // ⬅️ CRÍTICO
-        }
+        // if (step === 2 && Array.isArray(stepData)) {
+        //     const container = document.getElementById('trasteros-container');
+        //     if (!container) return;
+        //
+        //     // Limpiar existentes
+        //     container
+        //         .querySelectorAll('.trastero-item:not(#trastero-template)')
+        //         .forEach(el => el.remove());
+        //
+        //     stepData.forEach(trastero => {
+        //         if (typeof window.addTrastero !== 'function') return;
+        //
+        //         const el = window.addTrastero();
+        //         if (!el) return;
+        //
+        //         el.querySelector('.trastero-numero').value = trastero.numero_trastero || '';
+        //         el.querySelector('.trastero-metros').value = trastero.metros || '';
+        //         el.querySelector('.trastero-cubicos').value = trastero.metros_cubicos || '';
+        //         el.querySelector('.trastero-precio-sin-iva').value = trastero.precio_sin_iva || '';
+        //         el.querySelector('.trastero-precio-con-iva').value = trastero.precio_con_iva || '';
+        //         el.querySelector('.trastero-fianza').value = trastero.fianza || '';
+        //         el.querySelector('.trastero-descripcion').value = trastero.descripcion || '';
+        //
+        //         // Validar campos restaurados
+        //         el.querySelectorAll('input, select, textarea').forEach(f => {
+        //             this.validateField(f);
+        //         });
+        //     });
+        //
+        //     return; // ⬅️ CRÍTICO
+        // }
 
         // =========================
         // PASO 3 – Usuarios
