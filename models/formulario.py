@@ -94,7 +94,7 @@ class Formulario:
             cliente_id=row['cliente_id'],
             datos_empresa=json.loads(row['datos_empresa'] or '{}'),
             info_trasteros=json.loads(row['info_trasteros'] or '[]'),
-            usuarios_app=json.loads(row['usuarios_app'] or '{}'),
+            usuarios_app=json.loads(row['usuarios_app'] or '[]'),
             config_correo=json.loads(row['config_correo'] or '{}'),
             niveles_acceso=json.loads(row['niveles_acceso'] or '{}'),
             documentacion=json.loads(row['documentacion'] or '{}'),
@@ -134,6 +134,12 @@ class Formulario:
         if paso == 2:
             if isinstance(datos, dict):
                 datos = datos.get('trasteros', [])
+            if not isinstance(datos, list):
+                datos = []
+
+        if paso == 3:
+            if isinstance(datos, dict):
+                datos = datos.get('usuarios', [])
             if not isinstance(datos, list):
                 datos = []
 

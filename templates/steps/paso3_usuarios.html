@@ -268,55 +268,94 @@
         const maxUsuarios = 3;
 
         // Función para agregar un nuevo usuario
-        function addUsuario() {
-            if (usuarioCounter >= maxUsuarios) {
-                alert('Máximo 3 usuarios permitidos según las licencias adquiridas.');
-                return;
-            }
+        function addUsuario(data = null) {
+    if (usuarioCounter >= maxUsuarios) {
+        alert('Máximo 3 usuarios permitidos según las licencias adquiridas.');
+        return;
+    }
 
-            usuarioCounter++;
-            const template = document.getElementById('usuario-template');
-            const newUsuario = template.cloneNode(true);
+    usuarioCounter++;
 
-            // Configurar el nuevo usuario
-            newUsuario.id = `usuario-${usuarioCounter}`;
-            newUsuario.style.display = 'block';
-            newUsuario.querySelector('.usuario-number').textContent = usuarioCounter;
+    const template = document.getElementById('usuario-template');
+    const el = template.cloneNode(true);
 
-            // Actualizar nombres de los campos
-            const inputs = newUsuario.querySelectorAll('input, select');
-            inputs.forEach(input => {
-                const name = input.getAttribute('name');
-                if (name) {
-                    input.setAttribute('name', `usuarios[${usuarioCounter - 1}][${name}]`);
-                    // Actualizar IDs únicos para checkboxes
-                    if (input.type === 'checkbox') {
-                        const newId = input.id + '_' + usuarioCounter;
-                        input.id = newId;
-                        const label = newUsuario.querySelector(`label[for="${input.id.replace('_' + usuarioCounter, '')}"]`);
-                        if (label) label.setAttribute('for', newId);
-                    }
-                }
-            });
+    // Configuración básica
+    el.id = `usuario-${usuarioCounter}`;
+    el.style.display = 'block';
+    el.querySelector('.usuario-number').textContent = usuarioCounter;
 
-            // Agregar al contenedor
-            document.getElementById('usuarios-container').appendChild(newUsuario);
-
-            // Configurar eventos
-            setupUsuarioEvents(newUsuario);
-
-            // Ocultar mensaje de no usuarios
-            document.getElementById('no-usuarios-message').style.display = 'none';
-            document.getElementById('resumen-usuarios').style.display = 'block';
-
-            // Actualizar botón si se alcanza el máximo
-            if (usuarioCounter >= maxUsuarios) {
-                document.getElementById('add-usuario').disabled = true;
-                document.getElementById('add-usuario').innerHTML = '<i class="bi bi-exclamation-triangle me-2"></i>Máximo alcanzado';
-            }
-
-            updateResumenUsuarios();
+    // Indexar names + IDs únicos en checkboxes
+    el.querySelectorAll('input, select').forEach(input => {
+        const name = input.getAttribute('name');
+        if (name) {
+            input.setAttribute(
+                'name',
+                `usuarios[${usuarioCounter - 1}][${name}]`
+            );
         }
+
+        if (input.type === 'checkbox') {
+            const baseId = input.id;
+            const newId = `${baseId}_${usuarioCounter}`;
+            input.id = newId;
+
+            const label = el.querySelector(`label[for="${baseId}"]`);
+            if (label) label.setAttribute('for', newId);
+        }
+    });
+
+    // 🔹 Cargar datos iniciales (MISMO PATRÓN QUE addTrastero)
+    if (data) {
+        el.querySelector('.usuario-nombre').value =
+            data.nombre_usuario || '';
+
+        el.querySelector('.usuario-email').value =
+            data.email_usuario || '';
+
+        el.querySelector('.usuario-password').value =
+            data.password_usuario || '';
+
+        el.querySelector('.usuario-confirm-password').value =
+            data.confirm_password_usuario || '';
+
+        el.querySelector('.usuario-rol').value =
+            data.rol_usuario || 'usuario';
+
+        el.querySelector('.usuario-departamento').value =
+            data.departamento_usuario || '';
+
+        // Permisos
+        if (data.permisos) {
+            el.querySelector('[name*="permisos_facturacion"]').checked =
+                !!data.permisos.facturacion;
+
+            el.querySelector('[name*="permisos_reportes"]').checked =
+                !!data.permisos.reportes;
+
+            el.querySelector('[name*="permisos_configuracion"]').checked =
+                !!data.permisos.configuracion;
+        }
+    }
+
+    // Agregar al DOM
+    document.getElementById('usuarios-container').appendChild(el);
+
+    // Eventos
+    setupUsuarioEvents(el);
+
+    // UI global
+    document.getElementById('no-usuarios-message').style.display = 'none';
+    document.getElementById('resumen-usuarios').style.display = 'block';
+
+    if (usuarioCounter >= maxUsuarios) {
+        const btn = document.getElementById('add-usuario');
+        btn.disabled = true;
+        btn.innerHTML =
+            '<i class="bi bi-exclamation-triangle me-2"></i>Máximo alcanzado';
+    }
+
+    updateResumenUsuarios();
+}
 
         // Función para configurar eventos de un usuario
         function setupUsuarioEvents(usuarioElement) {
@@ -498,10 +537,21 @@
             document.getElementById('total-usuarios-estandar').textContent = totalUsuariosEstandar;
         }
 
+
+
+        // =========================
+        // 🔥 REHIDRATAR DESDE BACKEND
+        // =========================
+
+        const data = window.formularioData?.datosFormulario?.usuarios_app || [];
+
+        if (Array.isArray(data) && data.length > 0) {
+            data.forEach(u => addUsuario(u));
+        } else {
+          addUsuario();
+        }
+
         // Evento para agregar usuario
         document.getElementById('add-usuario').addEventListener('click', addUsuario);
-
-        // Agregar un usuario inicial
-        addUsuario();
     });
 </script>

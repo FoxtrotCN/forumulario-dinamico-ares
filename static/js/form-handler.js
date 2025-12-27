@@ -490,6 +490,8 @@ class FormularioCliente {
             });
         });
 
+        console.log('usuarios', usuarios);
+
         console.log('Usuarios serializados:', usuarios);
         return usuarios;
     }
@@ -974,6 +976,8 @@ class FormularioCliente {
         if (typeof window.formularioData !== 'undefined' && window.formularioData.datosFormulario) {
             const datos = window.formularioData.datosFormulario;
 
+            console.log('datos ###', datos);
+
             // Cargar datos según el paso actual
             this.loadStepData(this.currentStep, datos);
             // Actualizar la barra de progreso con el porcentaje inicial
@@ -1041,46 +1045,47 @@ class FormularioCliente {
         // =========================
         // PASO 3 – Usuarios
         // =========================
-        if (step === 3 && Array.isArray(stepData)) {
-            const container = document.getElementById('usuarios-container');
-            if (!container) return;
-
-            // Limpiar existentes
-            container
-                .querySelectorAll('.usuario-item:not(#usuario-template)')
-                .forEach(el => el.remove());
-
-            stepData.forEach(usuario => {
-                if (typeof window.addUsuario !== 'function') return;
-
-                const el = window.addUsuario();
-                if (!el) return;
-
-                el.querySelector('.usuario-nombre').value = usuario.nombre_usuario || '';
-                el.querySelector('.usuario-email').value = usuario.email_usuario || '';
-                el.querySelector('.usuario-password').value = usuario.password_usuario || '';
-                el.querySelector('.usuario-confirm-password').value = usuario.confirm_password_usuario || '';
-                el.querySelector('.usuario-rol').value = usuario.rol_usuario || 'usuario';
-                el.querySelector('.usuario-departamento').value = usuario.departamento_usuario || '';
-
-                if (usuario.permisos) {
-                    el.querySelector('[name*="permisos_facturacion"]').checked = !!usuario.permisos.facturacion;
-                    el.querySelector('[name*="permisos_reportes"]').checked = !!usuario.permisos.reportes;
-                    el.querySelector('[name*="permisos_configuracion"]').checked = !!usuario.permisos.configuracion;
-                }
-
-                // Forzar resumen + validaciones
-                if (typeof updateUsuarioResumen === 'function') {
-                    updateUsuarioResumen(el);
-                }
-
-                el.querySelectorAll('input, select').forEach(f => {
-                    this.validateField(f);
-                });
-            });
-
-            return; // ⬅️ IGUAL DE CRÍTICO
-        }
+        // if (step === 3 && Array.isArray(stepData)) {
+        //     const container = document.getElementById('usuarios-container');
+        //
+        //     if (!container) return;
+        //
+        //     if (typeof window.addUsuario !== 'function') return;
+        //
+        //     // Limpiar existentes
+        //     container
+        //         .querySelectorAll('.usuario-item:not(#usuario-template)')
+        //         .forEach(el => el.remove());
+        //
+        //     stepData.forEach(usuario => {
+        //         const el = window.addUsuario();
+        //         if (!el) return;
+        //
+        //         el.querySelector('.usuario-nombre').value = usuario.nombre_usuario || '';
+        //         el.querySelector('.usuario-email').value = usuario.email_usuario || '';
+        //         el.querySelector('.usuario-password').value = usuario.password_usuario || '';
+        //         el.querySelector('.usuario-confirm-password').value = usuario.confirm_password_usuario || '';
+        //         el.querySelector('.usuario-rol').value = usuario.rol_usuario || 'usuario';
+        //         el.querySelector('.usuario-departamento').value = usuario.departamento_usuario || '';
+        //
+        //         if (usuario.permisos) {
+        //             el.querySelector('[name*="permisos_facturacion"]').checked = !!usuario.permisos.facturacion;
+        //             el.querySelector('[name*="permisos_reportes"]').checked = !!usuario.permisos.reportes;
+        //             el.querySelector('[name*="permisos_configuracion"]').checked = !!usuario.permisos.configuracion;
+        //         }
+        //
+        //         // Forzar resumen + validaciones
+        //         if (typeof updateUsuarioResumen === 'function') {
+        //             updateUsuarioResumen(el);
+        //         }
+        //
+        //         el.querySelectorAll('input, select').forEach(f => {
+        //             this.validateField(f);
+        //         });
+        //     });
+        //
+        //     return; // ⬅️ IGUAL DE CRÍTICO
+        // }
 
         // =========================
         // PASO 5: niveles dinámicos

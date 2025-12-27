@@ -241,7 +241,6 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
         let trasteroCounter = 0;
         const container = document.getElementById('trasteros-container');
         const template = document.getElementById('trastero-template');
@@ -347,19 +346,5 @@
         if (Array.isArray(data) && data.length > 0) {
             data.forEach(t => addTrastero(t));
         }
-
-        {#const data = window.formularioData?.paso_2 || [];#}
-        {##}
-        {#if (Array.isArray(data) && data.length > 0) {#}
-        {#    data.forEach(t => addTrastero(t));#}
-        {#} else
-            {#}
-                {#    updateState();#}
-                {#}#}
-
-                    // Botón agregar
-                    document.getElementById('add-trastero').addEventListener('click', () => addTrastero());
-                }
-            )
-                ;
+    });
 </script>
